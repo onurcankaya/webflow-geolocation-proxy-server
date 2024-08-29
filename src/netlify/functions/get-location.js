@@ -10,11 +10,13 @@ export async function handler(event) {
   if (!ip) {
     return {
       statusCode: 400,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ error: "IP address not found" }),
     };
   }
-
-  console.log("ip", ip);
 
   const apiKey = process.env.IPAPI_API_KEY;
   const url = `https://api.ipapi.com/api/${ip}?access_key=${apiKey}`;
@@ -25,12 +27,20 @@ export async function handler(event) {
     console.log("data", data);
     return {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(data),
     };
   } catch (error) {
     console.error("Error fetching data:", error);
     return {
       statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ error: "Failed to fetch location data" }),
     };
   }
