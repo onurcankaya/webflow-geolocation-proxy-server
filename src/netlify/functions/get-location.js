@@ -16,6 +16,7 @@ export async function handler() {
       body: JSON.stringify(data),
     };
   } catch (error) {
+    console.error("Error fetching data:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "Failed to fetch location data" }),
